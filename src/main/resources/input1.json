@@ -1,0 +1,23 @@
+[
+  {
+    "name": "book",
+    "type": "Book",
+    "price": "12.49",
+    "quantity": 1,
+    "source": "Domestic"
+  },
+  {
+    "name": "Music CD",
+    "type": "Other",
+    "price": "14.99",
+    "quantity": 1,
+    "source": "Domestic"
+  },
+  {
+    "name": "Chocolate Bar",
+    "type": "Food",
+    "price": "0.85",
+    "quantity": 1,
+    "source": "Domestic"
+  }
+]
