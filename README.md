@@ -51,7 +51,7 @@ Possible values for field **`type`**:   _Book_, _Food_, _Medical_, _Other_
 
 ## Running the tests
 
-There are some Unit tests coded
+There are some Unit tests coded that cover the more important functionality
 
 ### Unit tests
 
