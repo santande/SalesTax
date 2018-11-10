@@ -39,6 +39,11 @@ java -jar target/SalesTax-1.0-SNAPSHOT.jar input2.json
 java -jar target/SalesTax-1.0-SNAPSHOT.jar input3.json
 ```
 
+4.The correct format of the input JSON is demonstrated here
+
+```
+SalesTax/input1.json
+```
 
 ## Running the tests
 
