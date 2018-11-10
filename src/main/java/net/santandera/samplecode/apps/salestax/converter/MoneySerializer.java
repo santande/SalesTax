@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class MoneySerializer extends StdSerializer<Money> {
 
-   public MoneySerializer() {
+    public MoneySerializer() {
         this(null);
     }
 

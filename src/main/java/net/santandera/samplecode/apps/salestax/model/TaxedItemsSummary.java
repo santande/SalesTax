@@ -16,7 +16,7 @@ public class TaxedItemsSummary {
 
     public TaxedItemsSummary(List<TaxedItem> taxedItems) {
         this.taxedItems = taxedItems;
-        for (TaxedItem taxedItem: this.taxedItems) {
+        for (TaxedItem taxedItem : this.taxedItems) {
             salesTaxes = salesTaxes.plus(taxedItem.taxes);
             total = total.plus(taxedItem.taxes).plus(taxedItem.getPrice().multipliedBy(taxedItem.quantity));
         }
@@ -49,7 +49,8 @@ public class TaxedItemsSummary {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (TaxedItem taxedItem: this.taxedItems) {
+        sb.append("Order Summary:\r\n");
+        for (TaxedItem taxedItem : this.taxedItems) {
             sb.append(taxedItem.toString());
             sb.append("\r\n");
         }

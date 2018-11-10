@@ -6,13 +6,19 @@ import net.santandera.samplecode.apps.salestax.model.SourceType;
 import net.santandera.samplecode.apps.salestax.service.ItemTaxCalculator;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class InitialItemTaxCalculator implements ItemTaxCalculator {
+
+    private Logger log = LoggerFactory.getLogger(InitialItemTaxCalculator.class);
+
     @Override
     public Money calculateSalesTax(ItemInterface item) {
+        log.debug("Calculating raw tax for item '{}'", item.getName());
         Money taxes = Money.zero(CurrencyUnit.USD);
         //tax is 10% for all "Other" items.
         if (item.getType() == ProductType.Other) {
@@ -35,6 +41,7 @@ public class InitialItemTaxCalculator implements ItemTaxCalculator {
 
     @Override
     public Money roundSalesTax(Money rawSalestax) {
+        log.debug("Rounding raw tax value of '{}'   ", rawSalestax.getAmount().toPlainString());
         int cents = rawSalestax.getMinorPart();
         String centsStr = Integer.toString(cents);
         int lastCentsPosition = cents > 9 ? 1 : 0;

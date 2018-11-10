@@ -7,5 +7,5 @@ public interface ItemTaxCalculator {
 
     Money calculateSalesTax(ItemInterface item);
 
-    Money roundSalesTax(Money rawSalestax) ;
+    Money roundSalesTax(Money rawSalestax);
 }

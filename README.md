@@ -10,8 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-JDK 8 and JRE installed and on path
-Maven 3+ installed and on path
+JDK 8 and JRE installed and on PATH
+Maven 3+ installed and on PATH
+Git 2.9+ installed and on PATH
 ```
 
 ### Installing
@@ -21,29 +22,32 @@ A step by step series of examples that tell you how to get a development env run
 1.Clone Repo
 
 ```
-https://github.com/santande/SalesTax.git
+git clone https://github.com/santande/SalesTax.git
 ```
 
 2.Build project
 
 ```
-CD SalesTax
+cd SalesTax
 mvn clean package
 ```
 
 3.Run program to demonstrate scenarios
 
 ```
-java -jar target/SalesTax-1.0-SNAPSHOT.jar input1.json
-java -jar target/SalesTax-1.0-SNAPSHOT.jar input2.json
-java -jar target/SalesTax-1.0-SNAPSHOT.jar input3.json
+java -jar target/CalculateSalesTax.jar input1.json
+java -jar target/CalculateSalesTax.jar input2.json
+java -jar target/CalculateSalesTax.jar input3.json
 ```
 
-4.The correct format of the input JSON is demonstrated here
+4.Input data format (JSON) is demonstrated here:
 
-```
-SalesTax/input1.json
-```
+[input1.json](./input1.json)
+
+*Notes:*  
+Possible values for field **`source`**:  _Domestic_, _Import_
+
+Possible values for field **`type`**:   _Book_, _Food_, _Medical_, _Other_
 
 ## Running the tests
 

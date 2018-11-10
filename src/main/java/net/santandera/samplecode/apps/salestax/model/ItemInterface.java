@@ -10,6 +10,8 @@ public interface ItemInterface {
 
     SourceType getSource();
 
-    ProductType getType ();
+    ProductType getType();
+
+    String getName();
 
 }

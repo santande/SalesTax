@@ -34,6 +34,7 @@ public class Item implements ItemInterface {
     @NotNull(message = "source cannot be null")
     protected SourceType source;
 
+    @Override
     public String getName() {
         return name;
     }
@@ -76,5 +77,16 @@ public class Item implements ItemInterface {
 
     public void setSource(SourceType source) {
         this.source = source;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", source=" + source +
+                '}';
     }
 }

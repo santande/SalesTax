@@ -30,11 +30,8 @@ public class TaxedItem extends Item {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(quantity);
-        sb.append(" ");
-        sb.append(name);
-        sb.append(":");
-        sb.append(" ");
+        sb.append("(").append(quantity).append(")").append(" ");
+        sb.append(name).append(": ");
         sb.append(price.multipliedBy(quantity).plus(taxes).getAmount().toPlainString());
         return sb.toString();
     }

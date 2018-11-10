@@ -35,7 +35,7 @@ public class ObjectMappingTest {
         item.setType(ProductType.Book);
 
         String prettyItem = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(item);
-        //System.out.println(prettyItem);
+        //log.info(prettyItem);
 
         assertThat(prettyItem, containsString("10.50"));
     }
@@ -48,7 +48,7 @@ public class ObjectMappingTest {
         List<Item> items = objectMapper.readValue(is, new TypeReference<List<Item>>(){});
 /*
         for (Item item: items) {
-            System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));
+            log.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));
         }
 */
         assertTrue("Did not deserialize Items correctly", items != null && items.size() == 3);

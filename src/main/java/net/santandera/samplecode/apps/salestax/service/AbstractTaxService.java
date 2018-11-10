@@ -8,6 +8,8 @@ import net.santandera.samplecode.apps.salestax.model.Item;
 import net.santandera.samplecode.apps.salestax.model.TaxedItem;
 import net.santandera.samplecode.apps.salestax.model.TaxedItemsSummary;
 import org.joda.money.Money;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -23,6 +25,8 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class AbstractTaxService implements TaxService {
+
+    private static Logger log = LoggerFactory.getLogger(AbstractTaxService.class);
 
     private ItemTaxCalculator taxCalculator;
 
@@ -42,19 +46,21 @@ public abstract class AbstractTaxService implements TaxService {
         TaxedItemsSummary summary = null;
         try {
             File file = getFile(filenames);
-            List<Item> items = objectMapper.readValue(file, new TypeReference<List<Item>>(){});
+            log.debug("Processing input file {}", file.getName());
+            List<Item> items = objectMapper.readValue(file, new TypeReference<List<Item>>() {
+            });
             validate(items);
             summary = createTaxesSummaryFor(items);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new TaxServiceException(e.getMessage());
         }
         return summary;
     }
 
-    private TaxedItemsSummary createTaxesSummaryFor(List<Item> items)  {
+    private TaxedItemsSummary createTaxesSummaryFor(List<Item> items) {
         List<TaxedItem> taxedItems = new ArrayList<>();
-        for (Item item: items) {
+        for (Item item : items) {
+            log.debug("Processing item {}", item.toString());
             Money itemTaxes = taxCalculator.calculateSalesTax(item);
             itemTaxes = taxCalculator.roundSalesTax(itemTaxes);
             TaxedItem taxedItem = new TaxedItem(item, itemTaxes);
@@ -63,6 +69,12 @@ public abstract class AbstractTaxService implements TaxService {
         return new TaxedItemsSummary(taxedItems);
     }
 
+    /**
+     * Verify we can get 1 valid file to process.
+     * @param fileName
+     * @return
+     * @throws InputFileException
+     */
     private static File getFile(String[] fileName) throws InputFileException {
         File file;
         if (fileName == null || fileName.length != 1) {
@@ -77,17 +89,16 @@ public abstract class AbstractTaxService implements TaxService {
             }
 
             file = filePath.toFile();
-        }
-        catch (InvalidPathException ipe) {
+        } catch (InvalidPathException ipe) {
             throw new InputFileException(ipe.getMessage());
         }
         return file;
     }
 
     private void validate(List<Item> items) throws InputFileException {
-        for (Item item: items) {
+        for (Item item : items) {
             Set<ConstraintViolation<Item>> violations = validator.validate(item);
-            if (violations != null  && violations.size() > 0) {
+            if (violations != null && violations.size() > 0) {
                 //just get 1st one for now.
                 ConstraintViolation<Item> violation = violations.iterator().next();
                 String propertyName = violation.getPropertyPath().toString().toLowerCase().equals("name") ?

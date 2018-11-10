@@ -7,6 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <url>http://www.example.com</url>
   <build>
+    <finalName>CalculateSalesTax</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
