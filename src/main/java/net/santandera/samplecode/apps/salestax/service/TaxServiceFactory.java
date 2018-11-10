@@ -1,6 +1,5 @@
 package net.santandera.samplecode.apps.salestax.service;
 
-import net.santandera.samplecode.apps.salestax.exception.TaxServiceException;
 import net.santandera.samplecode.apps.salestax.service.impl.InitialTaxService;
 
 public class TaxServiceFactory {
@@ -9,7 +8,7 @@ public class TaxServiceFactory {
 
     }
 
-    public static TaxService getTaxServiceFor(ItemTaxCalculator taxCalculator) throws TaxServiceException {
+    public static TaxService getTaxServiceFor(ItemTaxCalculator taxCalculator) {
         TaxService taxService = null;
 
         taxService = new InitialTaxService(taxCalculator);

@@ -19,7 +19,7 @@ public class CalculateSalesTax
 
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "Beginning CalculateSalesTax..." );
         try {
             TaxService taxService = TaxServiceFactory.getTaxServiceFor(taxCalculator);
             TaxedItemsSummary taxedItemsSummary = taxService.calculateTaxes(args);
@@ -27,8 +27,8 @@ public class CalculateSalesTax
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-            System.exit(-1);
         }
+        System.out.println("Finished CalculateSalesTax.");
     }
 
 }

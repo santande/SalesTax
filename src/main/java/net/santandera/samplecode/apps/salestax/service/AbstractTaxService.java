@@ -9,6 +9,10 @@ import net.santandera.samplecode.apps.salestax.model.TaxedItem;
 import net.santandera.samplecode.apps.salestax.model.TaxedItemsSummary;
 import org.joda.money.Money;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -16,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractTaxService implements TaxService {
 
@@ -23,9 +28,13 @@ public abstract class AbstractTaxService implements TaxService {
 
     private ObjectMapper objectMapper;
 
+    Validator validator;
+
     public AbstractTaxService(ItemTaxCalculator taxCalculator) {
         this.taxCalculator = taxCalculator;
         objectMapper = new ObjectMapper();
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
 
     @Override
@@ -34,20 +43,24 @@ public abstract class AbstractTaxService implements TaxService {
         try {
             File file = getFile(filenames);
             List<Item> items = objectMapper.readValue(file, new TypeReference<List<Item>>(){});
-            List<TaxedItem> taxedItems = new ArrayList<>();
-            for (Item item: items) {
-                Money itemTaxes = taxCalculator.calculateSalesTax(item);
-                itemTaxes = taxCalculator.roundSalesTax(itemTaxes);
-                TaxedItem taxedItem = new TaxedItem(item, itemTaxes);
-                taxedItems.add(taxedItem);
-            }
-            summary = new TaxedItemsSummary(taxedItems);
-
+            validate(items);
+            summary = createTaxesSummaryFor(items);
         }
         catch (Exception e) {
             throw new TaxServiceException(e.getMessage());
         }
         return summary;
+    }
+
+    private TaxedItemsSummary createTaxesSummaryFor(List<Item> items)  {
+        List<TaxedItem> taxedItems = new ArrayList<>();
+        for (Item item: items) {
+            Money itemTaxes = taxCalculator.calculateSalesTax(item);
+            itemTaxes = taxCalculator.roundSalesTax(itemTaxes);
+            TaxedItem taxedItem = new TaxedItem(item, itemTaxes);
+            taxedItems.add(taxedItem);
+        }
+        return new TaxedItemsSummary(taxedItems);
     }
 
     private static File getFile(String[] fileName) throws InputFileException {
@@ -69,6 +82,23 @@ public abstract class AbstractTaxService implements TaxService {
             throw new InputFileException(ipe.getMessage());
         }
         return file;
+    }
+
+    private void validate(List<Item> items) throws InputFileException {
+        for (Item item: items) {
+            Set<ConstraintViolation<Item>> violations = validator.validate(item);
+            if (violations != null  && violations.size() > 0) {
+                //just get 1st one for now.
+                ConstraintViolation<Item> violation = violations.iterator().next();
+                String propertyName = violation.getPropertyPath().toString().toLowerCase().equals("name") ?
+                        "<unknown name>" : item.getName();
+                throw new InputFileException("Item " + propertyName + " is in ERROR: " +
+                        violation.getMessage());
+            }
+
+        }
+
+
     }
 
 }
