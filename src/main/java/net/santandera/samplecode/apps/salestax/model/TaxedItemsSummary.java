@@ -13,7 +13,6 @@ public class TaxedItemsSummary {
 
     private Money total = Money.zero(CurrencyUnit.USD);
 
-
     public TaxedItemsSummary(List<TaxedItem> taxedItems) {
         this.taxedItems = taxedItems;
         for (TaxedItem taxedItem : this.taxedItems) {

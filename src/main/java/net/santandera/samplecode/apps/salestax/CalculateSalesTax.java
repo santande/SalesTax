@@ -21,6 +21,7 @@ public class CalculateSalesTax {
     public static void main(String[] args) {
         log.info("Beginning CalculateSalesTax...");
         try {
+            //next line shows use of Factory Pattern.
             TaxService taxService = TaxServiceFactory.getTaxServiceFor(taxCalculator);
             TaxedItemsSummary taxedItemsSummary = taxService.calculateTaxes(args);
             log.info("-----Writing Final Results-----");

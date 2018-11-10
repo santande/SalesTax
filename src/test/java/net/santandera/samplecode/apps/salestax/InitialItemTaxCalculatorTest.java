@@ -31,7 +31,7 @@ public class InitialItemTaxCalculatorTest {
 
     @Test
     public void testCalculateItemTax_10Percent() {
-        Item item =  new Item();
+        Item item = new Item();
         item.setName("CD");
         Money price = Money.of(CurrencyUnit.USD, 10.00d);
         item.setPrice(price);
@@ -101,7 +101,7 @@ public class InitialItemTaxCalculatorTest {
         Money currSalesTax = Money.of(CurrencyUnit.USD, amt);
         Money roundedSalesTax = taxCalculator.roundSalesTax(currSalesTax);
         Assert.assertTrue("Rounding is in error!",
-                roundedSalesTax.equals(Money.of(CurrencyUnit.USD,  2.00d)));
+                roundedSalesTax.equals(Money.of(CurrencyUnit.USD, 2.00d)));
     }
 
 }

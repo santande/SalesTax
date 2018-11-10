@@ -45,7 +45,8 @@ public class ObjectMappingTest {
 
         InputStream is = getClass().getClassLoader().getResourceAsStream("testinput1.json");
 
-        List<Item> items = objectMapper.readValue(is, new TypeReference<List<Item>>(){});
+        List<Item> items = objectMapper.readValue(is, new TypeReference<List<Item>>() {
+        });
 /*
         for (Item item: items) {
             log.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));

@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Initial implementation of calculating taxes and rounding of the taxes.
+ */
 public class InitialItemTaxCalculator implements ItemTaxCalculator {
 
     private Logger log = LoggerFactory.getLogger(InitialItemTaxCalculator.class);

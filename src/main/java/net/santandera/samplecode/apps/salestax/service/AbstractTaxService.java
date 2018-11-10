@@ -43,7 +43,7 @@ public abstract class AbstractTaxService implements TaxService {
 
     @Override
     public TaxedItemsSummary calculateTaxes(String[] filenames) throws TaxServiceException {
-        TaxedItemsSummary summary = null;
+        TaxedItemsSummary summary;
         try {
             File file = getFile(filenames);
             log.debug("Processing input file {}", file.getName());
@@ -51,6 +51,8 @@ public abstract class AbstractTaxService implements TaxService {
             });
             validate(items);
             summary = createTaxesSummaryFor(items);
+        } catch (InputFileException ife) {
+            throw ife;
         } catch (Exception e) {
             throw new TaxServiceException(e.getMessage());
         }
@@ -71,6 +73,7 @@ public abstract class AbstractTaxService implements TaxService {
 
     /**
      * Verify we can get 1 valid file to process.
+     *
      * @param fileName
      * @return
      * @throws InputFileException
@@ -95,6 +98,12 @@ public abstract class AbstractTaxService implements TaxService {
         return file;
     }
 
+    /**
+     * Perform validation on data in all items.
+     *
+     * @param items
+     * @throws InputFileException
+     */
     private void validate(List<Item> items) throws InputFileException {
         for (Item item : items) {
             Set<ConstraintViolation<Item>> violations = validator.validate(item);
