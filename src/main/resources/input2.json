@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Box of Chocolates",
+    "type": "Food",
+    "price": "10.00",
+    "quantity": 1,
+    "source": "Import"
+  },
+  {
+    "name": "Bottle of Perfume",
+    "type": "Other",
+    "price": "47.50",
+    "quantity": 1,
+    "source": "Import"
+  }
+
+]

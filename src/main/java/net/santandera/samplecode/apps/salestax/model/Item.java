@@ -8,17 +8,17 @@ import org.joda.money.Money;
 
 public class Item implements ItemInterface {
 
-    private String name;
+    protected String name;
 
-    private ProductType type;
+    protected ProductType type;
 
     @JsonSerialize(using = MoneySerializer.class)
     @JsonDeserialize(using = MoneyDeserializer.class)
-    private Money price;
+    protected Money price;
 
-    private Long quantity;
+    protected Long quantity;
 
-    private SourceType source;
+    protected SourceType source;
 
     public String getName() {
         return name;

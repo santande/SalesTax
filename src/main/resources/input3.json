@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Bottle of Perfume",
+    "type": "Other",
+    "price": "27.99",
+    "quantity": 1,
+    "source": "Import"
+  },
+  {
+    "name": "Bottle of Perfume",
+    "type": "Other",
+    "price": "18.99",
+    "quantity": 1,
+    "source": "Domestic"
+  },
+  {
+    "name": "Packet of Headache Pills",
+    "type": "Medical",
+    "price": "9.75",
+    "quantity": 1,
+    "source": "Domestic"
+  },
+  {
+    "name": "Box of Chocolates",
+    "type": "Food",
+    "price": "11.25",
+    "quantity": 1,
+    "source": "Import"
+  }
+
+]

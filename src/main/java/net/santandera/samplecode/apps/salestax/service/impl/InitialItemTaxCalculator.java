@@ -18,14 +18,14 @@ public class InitialItemTaxCalculator implements ItemTaxCalculator {
         if (item.getType() == ProductType.Other) {
             taxes = item.getPrice()
                     .multipliedBy(item.getQuantity())
-                    .multipliedBy(new BigDecimal(".1"), RoundingMode.UNNECESSARY);
+                    .multipliedBy(new BigDecimal(".1"), RoundingMode.HALF_UP);
         }
 
         if (item.getSource() == SourceType.Import) {
             //add addtl 5% tax for import items.
             taxes = taxes.plus(item.getPrice()
                     .multipliedBy(item.getQuantity())
-                    .multipliedBy(new BigDecimal(".05"), RoundingMode.UNNECESSARY));
+                    .multipliedBy(new BigDecimal(".05"), RoundingMode.HALF_UP));
         }
 
 
@@ -37,7 +37,8 @@ public class InitialItemTaxCalculator implements ItemTaxCalculator {
     public Money roundSalesTax(Money rawSalestax) {
         int cents = rawSalestax.getMinorPart();
         String centsStr = Integer.toString(cents);
-        int lastCentsDigit = Character.getNumericValue(centsStr.charAt(1));
+        int lastCentsPosition = cents > 9 ? 1 : 0;
+        int lastCentsDigit = Character.getNumericValue(centsStr.charAt(lastCentsPosition));
         if (lastCentsDigit != 0 && lastCentsDigit != 5) {
             if (lastCentsDigit > 5) {
                 return rawSalestax.plusMinor(10 - lastCentsDigit);
