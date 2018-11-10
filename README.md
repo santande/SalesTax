@@ -3,7 +3,7 @@
 This project takes a JSON file of items and calculates sales taxes for them.
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ### Prerequisites
 
@@ -15,7 +15,7 @@ Maven 3+ installed and on PATH
 Git 2.9+ installed and on PATH
 ```
 
-### Installing
+### Installing/Building/Running App
 
 A step by step series of examples that tell you how to get a development env running
 
